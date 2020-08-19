@@ -1,0 +1,26 @@
+{
+  "name": "social_site",
+  "version": "1.0.0",
+  "description": "Social site built using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manulangat1/tujuane_social_app.git"
+  },
+  "keywords": [
+    "MERN",
+    "MONGO",
+    "NODE",
+    "EXPRESS",
+    "REACT"
+  ],
+  "author": "EMMANUEL KIPCHIRCHIR LANGAT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manulangat1/tujuane_social_app/issues"
+  },
+  "homepage": "https://github.com/manulangat1/tujuane_social_app#readme"
+}
