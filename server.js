@@ -3,14 +3,11 @@ const colors =  require('colors')
 const morgan =  require('morgan')
 const path =  require('path')
 const dotenv =  require('dotenv')
-
-// load the config 
-dotenv.config({path:'./config/config.env'})
-
-
 //importing and connecting to the db 
 const connectDB = require('./config/db')
 
+// load the config 
+dotenv.config({path:'./config/config.env'})
 
 const app = express()
 connectDB()
