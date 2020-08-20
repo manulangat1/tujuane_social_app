@@ -10,9 +10,10 @@ dotenv.config({path:'./config/config.env'})
 
 //importing and connecting to the db 
 const connectDB = require('./config/db')
-connectDB()
+
 
 const app = express()
+connectDB()
 // set morgan 
 if (process.env.NODE_ENV === "development"){
     app.use(morgan('dev'))
