@@ -6,6 +6,12 @@ const dotenv =  require('dotenv')
 
 // load the config 
 dotenv.config({path:'./config/config.env'})
+
+
+//importing and connecting to the db 
+const connectDB = require('./config/db')
+connectDB()
+
 const app = express()
 // set morgan 
 if (process.env.NODE_ENV === "development"){
