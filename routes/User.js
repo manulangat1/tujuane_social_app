@@ -1,5 +1,9 @@
 const express = require('express')
-const {registerUser,confirmAccount,resetPassword,resendConfirm,loginUser} = require('../controllers/User')
+const {registerUser,confirmAccount,resetPassword,resendConfirm,loginUser,logOut} = require('../controllers/User')
+
+
+const { isAuth } = require('../middleware/isAuth')
+const { isActive } = require('../middleware/isActive')
 
 const router = express.Router()
 
@@ -8,5 +12,6 @@ router.route('/confirmation/:token').get(confirmAccount)
 router.route('/reset/').post(resetPassword)
 router.route('/resend/').post(resendConfirm)
 router.route('/login/').post(loginUser)
+router.route('/logout/').post(isAuth,isActive,logOut)
 
 module.exports = router
