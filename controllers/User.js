@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const  { generateToken } = require('../helpers/generateAuthToken')
+const sendemail = require('../utils/mailer')
 
 
 exports.registerUser = async (req,res) => {
@@ -14,10 +15,15 @@ exports.registerUser = async (req,res) => {
             })
             const token = await generateToken(user._id)
             await user.save()
+            const mail = {
+                    to:`${user.email}`,
+                    subject: 'Account Verification Token',
+                    html:'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth/v1/confirmation\/' + token + '.\n'
+            }
+            await sendemail(mail)
             res.status(201).json({
                 success:true,
-                user,
-                token
+                message:'Verification Email sent to your email.Click on it to activate'
             })
         } else{
             res.status(400).json({
