@@ -10,12 +10,14 @@ exports.generateToken = async (userId) => {
         if (token){
          token.tokens = token.tokens.concat({newtoken})
          token.save()   
+         return await newtoken
         } else {
             const newT = new Token({
                 user:userId
             })
             newT.tokens.token = newtoken
             newT.save()
+            return await newtoken
         }
     } catch (err){
         console.log(`Error:${err}`)
