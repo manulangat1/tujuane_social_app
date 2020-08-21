@@ -160,6 +160,21 @@ exports.loginUser = async (req,res) => {
     }
 }
 
+exports.getuser = async (req,res) => {
+    try{
+        res.status(200).json({
+            success:true,
+            user:req.user
+        })
+    } catch (err)  {
+        console.log(`Error: ${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
+
 exports.logOut = async (req,res) => {
     try{
         const token = await Token.findOne({user:req.user})
