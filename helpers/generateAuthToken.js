@@ -3,24 +3,30 @@ const Token = require('../models/Token')
 const User = require('../models/User')
 
 
-exports.generateToken = async (userId) => {
+const generateToken = async (user) => {
     try{
-        const token = await Token.findOne({user:userId})
-        newtoken = await jwt.sign({_id:userId},process.env.JWT_KEY)
-        if (token){
-         token.tokens = token.tokens.concat({newtoken})
-         token.save()   
-         return await newtoken
-        } else {
-            const newT = new Token({
-                user:userId
+
+        const tokenb = await Token.findOne({user:user})
+        if (tokenb){
+            const token = jwt.sign({_id:user},process.env.JWT_KEY)
+            tokenb.tokens = tokenb.tokens.concat({token})
+            await tokenb.save()
+            return token
+            
+        } else{
+            const tokena = jwt.sign({_id:user},process.env.JWT_KEY)
+            const token = new Token({
+                user:user,
+                token:tokena
             })
-            newT.tokens.token = newtoken
-            newT.save()
-            return await newtoken
+            await token.save()
+            return tokena 
         }
-    } catch (err){
+         
+            
+    } catch (err) {
         console.log(`Error:${err}`)
-        console.log('Helper error')
     }
 }
+
+module.exports = generateToken
