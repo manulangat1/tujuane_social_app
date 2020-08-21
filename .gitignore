@@ -126,4 +126,6 @@ sketch
 
 config/config.env
 
+config/config.env
+config.env
 # End of https://www.toptal.com/developers/gitignore/api/node,react
