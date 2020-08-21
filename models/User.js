@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
         required:true
     },
     friends:{
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'User' 
     }
 })
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', async function(next){
     const user = this 
     if (user.isModified('password')){
-        user.password = await bcrypt.hash(user,password,8)
+        user.password = await bcrypt.hash(user.password,8)
     }
 })
 
@@ -46,5 +46,5 @@ UserSchema.statics.findByCredentials = async (email, password) => {
 }
 
 
-const User = mongoose.model(User,'UserSchema')
+const User = mongoose.model('User',UserSchema)
 module.exports = User

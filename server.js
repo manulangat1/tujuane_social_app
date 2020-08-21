@@ -11,11 +11,19 @@ dotenv.config({path:'./config/config.env'})
 
 const app = express()
 connectDB()
+//body parser 
+app.use(express.json())
 // set morgan 
 if (process.env.NODE_ENV === "development"){
     app.use(morgan('dev'))
 }
 
+
+
+//import routes 
+const User = require('./routes/User')
+
+app.use('/auth/v1/',User)
 //set test 
 app.get('/', (req,res) => res.send("Hello"))
 

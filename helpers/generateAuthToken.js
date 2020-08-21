@@ -21,9 +21,6 @@ exports.generateToken = async (userId) => {
         }
     } catch (err){
         console.log(`Error:${err}`)
-        res.status(400).json({
-            success:false,
-            message:'An error occured while authentication'
-        })
+        console.log('Helper error')
     }
 }
