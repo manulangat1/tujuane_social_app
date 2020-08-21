@@ -35,7 +35,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
     try {
         const user = await User.findOne({email})
         const isPasswordMatch = await bcrypt.compare(password, user.password)
-        await return user
+        return await user
     } catch (err){
         console.log(`Error :${err}`)
         res.status(400).json({
