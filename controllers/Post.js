@@ -24,8 +24,12 @@ exports.addPost = async (req,res) => {
 }
 
 exports.getPosts = async (req,res) => {
+    const following = req.user.following 
+    following.push(req.user._id)
     try{
-        const posts = await Post.find()
+        const posts = await Post.find({author:{$in:req.user.following}}).populate('comments.postedBy', '_id name')
+                .populate('author', '_id email username')
+                .sort('-createdAt')
         res.status(200).json({
             success:true,
             count:posts.length,
@@ -82,6 +86,22 @@ exports.deletePost = async(req,res) => {
             })
         }
         
+    } catch (err){
+        console.log(`Error is:${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
+
+
+exports.newComment = async (req,res) => {
+    try {
+        const newComment = await Post.findByIdAndUpdate(req.body.postId,{$push: {comments: comment}},
+            {new: true})
+            .populate('comments.postedBy', '_id name')
+            .populate('author', '_id username email')
     } catch (err){
         console.log(`Error is:${err}`)
         res.status(500).json({
