@@ -24,7 +24,9 @@ const UserSchema = new mongoose.Schema({
     friends:{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User' 
-    }
+    },
+    following: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
+    followers: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
 })
 
 UserSchema.pre('save', async function(next){
