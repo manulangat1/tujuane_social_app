@@ -3,6 +3,8 @@ const colors =  require('colors')
 const morgan =  require('morgan')
 const path =  require('path')
 const dotenv =  require('dotenv')
+const exphbs = require('express-handlebars')
+const bodyParser = require("body-parser");
 //importing and connecting to the db 
 const connectDB = require('./config/db')
 
@@ -11,11 +13,23 @@ dotenv.config({path:'./config/config.env'})
 
 const app = express()
 connectDB()
+//body parser 
+app.use(express.json())
+// initiliase body parse 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // set morgan 
 if (process.env.NODE_ENV === "development"){
     app.use(morgan('dev'))
 }
+app.engine('.hbs',exphbs({extname:'.hbs'}))
+app.set('view engine', '.hbs')
 
+
+//import routes 
+const User = require('./routes/User')
+
+app.use('/auth/v1/',User)
 //set test 
 app.get('/', (req,res) => res.send("Hello"))
 
