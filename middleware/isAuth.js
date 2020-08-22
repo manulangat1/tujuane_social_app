@@ -7,7 +7,7 @@ exports.isAuth = async (req,res,next) => {
     try{
         const token = req.header('Authorization').replace('Bearer ','')
         const data = jwt.verify(token,process.env.JWT_KEY)
-        console.log(token)
+        // console.log(token)
         const tokens = await Token.findOne({user:data._id})
         // console.log(tokens)
 
