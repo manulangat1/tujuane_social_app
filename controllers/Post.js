@@ -27,7 +27,8 @@ exports.getPosts = async (req,res) => {
     const following = req.user.following 
     following.push(req.user._id)
     try{
-        const posts = await Post.find({author:{$in:req.user.following}}).populate('comments.postedBy', '_id name')
+        const posts = await Post.find({author:{$in:req.user.following}})
+        // .populate('comments.postedBy', '_id name')
                 .populate('author', '_id email username')
                 .sort('-createdAt')
         res.status(200).json({
@@ -100,10 +101,16 @@ exports.newComment = async (req,res) => {
     // console.log(req.user._id)
     try {
         const {comment }= req.body
-        console.log(req.body)
-        const newComment = await Post.findByIdAndUpdate(req.body.postId,{$push: {comments: comment}},
+        comment.postedBy = req.user._id
+        // console.log(comment)
+        const commen = {
+            text:comment,
+            postedBy:req.user._id
+        }
+        console.log(commen)
+        const newComment = await Post.findByIdAndUpdate(req.body.postId,{$push: {comments: commen}},
             {new: true})
-            .populate('comments.postedBy', '_id username')
+            // .populate('comments.postedBy', '_id username')
             .populate('author', '_id username email')
         res.status(200).json({
             success:true,
