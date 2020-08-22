@@ -6,7 +6,7 @@ exports.addPost = async (req,res) => {
     try{
         const { body } = req.body
         const newPost = new Post ({
-            user:req.user,
+            author:req.user._id,
             body
         })
         await newPost.save()
@@ -69,9 +69,11 @@ exports.deletePost = async(req,res) => {
     try{
         const _id = req.params.id
         const post = await Post.findById(_id)
-        if (post){
+        console.log(post.author)
+        console.log(req.user._id)
+        if (post.author = req.user._id){
             await post.remove()
-            res.status(304).json({
+            res.status(204).json({
                 success:true,
                 message:'Deletion Success'
             })
