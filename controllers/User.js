@@ -191,3 +191,59 @@ exports.logOut = async (req,res) => {
         })
     }
 }
+
+exports.addFollowing = async (req,res) => {
+    try{
+        const user = await User.findByIdAndUpdate(req.user._id,{$push: {following: req.body.followId}})
+        res.status(200).json({
+            success:true,
+            message:'User followed successfully'
+        })
+    } catch (err){
+        console.log(`Error: ${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
+exports.addFollower = async (req,res) => {
+    try{
+        const result = await User.findByIdAndUpdate(req.body.followId,
+            {$push: {followers: req.body.userId}},
+            {new: true})
+            .populate('following', '_id name')
+            .populate('followers', '_id name')
+            res.status(200).json({
+                success:true,
+                message:'User followed successfully'
+            })
+    } catch (err) {
+        console.log(`Error: ${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
+
+//who to follow backend 
+
+exports.whoTo = async (req,res) => {
+    const following = req.user.following
+    following.push(req.user._id)
+    try{
+        const users = await User.find({ _id:{ $nin : following }})
+        .select('name')
+        res.status(200).json({
+            success:true,
+            data:users
+        })
+    } catch (err) {
+        console.log(`Error: ${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
