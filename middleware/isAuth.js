@@ -11,7 +11,8 @@ exports.isAuth = async (req,res,next) => {
         const tokens = await Token.findOne({user:data._id})
         // console.log(tokens)
 
-        const user = await User.findById(tokens.user)
+        const user = await User.findById(tokens.user).populate('following', '_id name')
+        .populate('followers', '_id name')
         if (!user){
             res.status(401).json({
                 success:false,
