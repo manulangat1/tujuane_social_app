@@ -69,8 +69,6 @@ exports.deletePost = async(req,res) => {
     try{
         const _id = req.params.id
         const post = await Post.findById(_id)
-        console.log(post.author)
-        console.log(req.user._id)
         if (post.author = req.user._id){
             await post.remove()
             res.status(204).json({
