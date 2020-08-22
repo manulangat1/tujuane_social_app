@@ -97,11 +97,18 @@ exports.deletePost = async(req,res) => {
 
 
 exports.newComment = async (req,res) => {
+    // console.log(req.user._id)
     try {
+        const {comment }= req.body
+        console.log(req.body)
         const newComment = await Post.findByIdAndUpdate(req.body.postId,{$push: {comments: comment}},
             {new: true})
-            .populate('comments.postedBy', '_id name')
+            .populate('comments.postedBy', '_id username')
             .populate('author', '_id username email')
+        res.status(200).json({
+            success:true,
+            data:newComment
+        })
     } catch (err){
         console.log(`Error is:${err}`)
         res.status(500).json({
