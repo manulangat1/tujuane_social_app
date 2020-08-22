@@ -28,8 +28,11 @@ app.set('view engine', '.hbs')
 
 //import routes 
 const User = require('./routes/User')
+const Post = require('./routes/Post')
+
 
 app.use('/auth/v1/',User)
+app.use('/api/v1/',Post)
 //set test 
 app.get('/', (req,res) => res.send("Hello"))
 
