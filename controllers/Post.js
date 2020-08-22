@@ -64,3 +64,29 @@ exports.updatePost = async (req,res) => {
         })
     }
 }
+
+exports.deletePost = async(req,res) => {
+    try{
+        const _id = req.params.id
+        const post = await Post.findById(_id)
+        if (post){
+            await post.remove()
+            res.status(304).json({
+                success:true,
+                message:'Deletion Success'
+            })
+        } else {
+            res.status(404).json({
+                success:false,
+                message:'Not found'
+            })
+        }
+        
+    } catch (err){
+        console.log(`Error is:${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
