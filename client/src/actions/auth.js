@@ -13,13 +13,14 @@ export const loadUser = () => (dispatch,getState) => {
         .catch(err => console.log(err))
 }
 
-export const register = (username,password,password2,email) => dispatch => {
+export const register = ({username,password,password2,email}) => dispatch => {
     const config = {
         headers:{
             'Content-Type':'application/json'
         }
     }
-    const body = JSON.stringify({username,password,password2,email})
+    console.log(username,password,password2,email)
+    const body = JSON.stringify({email,username,password,password2})
     axios.post('/auth/v1/',body,config)
         .then(res => {
             dispatch({
