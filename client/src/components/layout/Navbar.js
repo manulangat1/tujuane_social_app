@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink} from 'react-router-dom'
 import  { connect } from 'react-redux'
+import { logOut} from '../../actions/auth'
 class Navbar extends React.Component{
 
     render(){
@@ -13,6 +14,7 @@ class Navbar extends React.Component{
         const authLink = (
             <ul>
                     <li><NavLink to='/'>Home</NavLink> </li>
+                    <li> <button  onClick={this.props.logOut} className="btn-danger btn-sm">Logout</button> </li>
                 </ul>
         )
         const { isAuthenticated} = this.props
@@ -27,4 +29,4 @@ class Navbar extends React.Component{
 const mapStateToProps = state => ({
     isAuthenticated:state.auth.isAuthenticated
 })
-export default connect(mapStateToProps,null) (Navbar)
+export default connect(mapStateToProps,{logOut}) (Navbar)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink,Redirect} from 'react-router-dom'
+import { NavLink,Redirect,withRouter} from 'react-router-dom'
 import { register } from '../../actions/auth'
 class Register extends React.Component{
     state = {
@@ -20,6 +20,7 @@ class Register extends React.Component{
             email,password,password2,username
         }
         this.props.register(newUser)
+        this.props.history.push('/login/')
     }
     render(){
         if (this.props.isAuthenticated){
@@ -57,4 +58,4 @@ class Register extends React.Component{
 const mapStateToProps = state => ({
     isAuthenticated:state.auth.isAuthenticated
 })
-export default connect(mapStateToProps,{register})(Register) 
+export default connect(mapStateToProps,{register})(withRouter( Register) )

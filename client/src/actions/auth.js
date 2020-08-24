@@ -1,11 +1,11 @@
-import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED} from './types'
+import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED,LOGOUT_SUCCESS} from './types'
 import axios from 'axios'
 
 export const loadUser = () => (dispatch,getState) => {
     axios.get('/auth/v1/user/',tokenConfig(getState))
         .then(res => {
             // console.log(res.data.user)
-            dispatchEvent({
+            dispatch({
                 type:USER_LOADED,
                 payload:res.data.user
             })
@@ -68,4 +68,15 @@ export const tokenConfig  = getState => {
         config.headers['Authorization']= `Bearer ${token}`
     }
     return config
+}
+export const logOut = () => (dispatch,getState) => {
+    axios.post('/auth/v1/logout/',null,tokenConfig(getState))
+        .then(res => {
+            dispatch({
+                type:LOGOUT_SUCCESS,
+                payload:res.data
+            })
+        })
+        .catch(err => console.log(err))
+
 }
