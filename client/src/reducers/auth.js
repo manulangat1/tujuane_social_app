@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS,REGISTER_SUCCESS,AUTH_FAIL,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD} from '../actions/types'
+import { LOGIN_SUCCESS,REGISTER_SUCCESS,AUTH_FAIL,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD,RESEND_EMAIL} from '../actions/types'
 const initialState = {
     token:localStorage.getItem('token'),
     isAuthenticated:null,
@@ -25,6 +25,7 @@ export default function(state=initialState,action){
             }
         case REGISTER_SUCCESS:
         case RESET_PASSWORD:
+        case RESEND_EMAIL:
             return{
                 ...state,
                 token:null,

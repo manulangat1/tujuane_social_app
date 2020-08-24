@@ -41,6 +41,7 @@ class Login extends React.Component{
                     <input type="submit" value="Sign in" className="btn-lg btn-success" />
                     <p>Not signed up? Register <NavLink to="/register/" >here</NavLink></p>
                     <p>Forgot password Reset <NavLink to="/reset/" >here</NavLink></p>
+                    <p>Get activation token<NavLink to="/resend/" >here</NavLink></p>
                 </form>
             </section>
         )

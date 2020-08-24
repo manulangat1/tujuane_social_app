@@ -7,6 +7,7 @@ import Dashboard from './components/main/Dashboard'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import PasswordReset from './components/auth/PasswordReset'
+import Resend from './components/auth/Resend'
 import Footer from './components/layout/Footer'
 import PrivateRoute from './components/hoc/PrivateRoute'
 import Navbar from './components/layout/Navbar'
@@ -29,6 +30,7 @@ class App extends React.Component{
             <PrivateRoute exact path="/" component={Dashboard}/>
             <Route exact path="/login/" component={Login}/>
             <Route exact path="/reset/" component={PasswordReset}/>
+            <Route exact path="/resend/" component={Resend}/>
             <Route exact path="/register/" component={Register}/>
           </Switch>
           
