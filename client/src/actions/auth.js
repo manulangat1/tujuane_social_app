@@ -1,4 +1,4 @@
-import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED,LOGOUT_SUCCESS} from './types'
+import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD} from './types'
 import axios from 'axios'
 
 export const loadUser = () => (dispatch,getState) => {
@@ -79,4 +79,20 @@ export const logOut = () => (dispatch,getState) => {
         })
         .catch(err => console.log(err))
 
+}
+export const resetPassword = (email,password,password2) => dispatch => {
+    const config = {
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }
+    const body = JSON.stringify({email,password,password2})
+    axios.post('/auth/v1/reset/',body,config)
+        .then(res => {
+            dispatch({
+                type:RESET_PASSWORD,
+                payload:res.data
+            })
+        })
+        .catch(err => console.log(err))
 }
