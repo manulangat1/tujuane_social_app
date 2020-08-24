@@ -1,16 +1,17 @@
-import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS} from './types'
+import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED} from './types'
 import axios from 'axios'
 
-// export const loadUser = () => {
-//     axios.get('/auth/v1/user/',tokenConfig(getState))
-//         .then(res => {
-//             dispatchEvent({
-//                 type:USER_LOADED,
-//                 payload:res.data
-//             })
-//         })
-//         .catch(err => console.log(err))
-// }
+export const loadUser = () => (dispatch,getState) => {
+    axios.get('/auth/v1/user/',tokenConfig(getState))
+        .then(res => {
+            // console.log(res.data.user)
+            dispatchEvent({
+                type:USER_LOADED,
+                payload:res.data.user
+            })
+        })
+        .catch(err => console.log(err))
+}
 
 export const register = (username,password,password2,email) => dispatch => {
     const config = {
@@ -39,9 +40,10 @@ export const login = (email,password) => dispatch => {
             'Content-Type':'application/json'
         }
     }
-    const body = JSON.stringify({username,password})
+    const body = JSON.stringify({email,password})
     axios.post('/auth/v1/login',body,config)
             .then(res => {
+                console.log(res)
                 dispatch({
                     type:LOGIN_SUCCESS,
                     payload:res.data
@@ -52,4 +54,17 @@ export const login = (email,password) => dispatch => {
                     type:AUTH_FAIL
                 })
             })
+}
+
+export const tokenConfig  = getState => {
+    const token = getState().auth.token
+    const config = {
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }
+    if(token){
+        config.headers['Authorization']= `Bearer ${token}`
+    }
+    return config
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import { NavLink} from 'react-router-dom'
 
 class Register extends React.Component{
     state = {
@@ -32,6 +32,8 @@ class Register extends React.Component{
                         <input type="password" className="form-control" required value={password2} name="password2"/>
                     </div>
                     <input type="submit" value="Sign Up" className="btn-sm btn-primary" />
+                    
+                    <p>Already signed up? Register <NavLink to="/login/" >here</NavLink></p>
                 </form>
             </section>
         )
