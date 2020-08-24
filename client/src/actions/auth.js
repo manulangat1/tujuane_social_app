@@ -80,7 +80,7 @@ export const logOut = () => (dispatch,getState) => {
         .catch(err => console.log(err))
 
 }
-export const resetPassword = (email,password,password2) => dispatch => {
+export const resetPassword = ({email,password,password2}) => dispatch => {
     const config = {
         headers:{
             'Content-Type':'application/json'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect,withRouter} from 'react-router-dom'
-
+import { Redirect,withRouter,NavLink} from 'react-router-dom'
+import {resetPassword} from '../../actions/auth'
 class PasswordReset extends React.Component{
     state = {
         email:'',
@@ -15,10 +15,10 @@ class PasswordReset extends React.Component{
         e.preventDefault()
         const {email,password,password2} = this.state
         console.log(email,password,password2)
-        const newUser = {
+        const reUser = {
             email,password,password2
         }
-        // this.props.register(newUser)
+        this.props.resetPassword(reUser)
         this.props.history.push('/login/')
     }
     render(){
@@ -52,4 +52,4 @@ class PasswordReset extends React.Component{
 const mapStateToProps = state => ({
     isAuthenticated:state.auth.isAuthenticated
 })
-export default connect(mapStateToProps,{})(withRouter( PasswordReset) )
+export default connect(mapStateToProps,{resetPassword})(withRouter( PasswordReset) )
