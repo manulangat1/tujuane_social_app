@@ -7,7 +7,7 @@ const { isActive } = require('../middleware/isActive')
 
 const router = express.Router()
 router.route('/').get(isAuth,isActive,getPosts).post(isAuth,isActive, addPost)
-router.route('/:id/').get(getPostById).put(isAuth,isActive,updatePost).delete(isAuth,isActive,deletePost)
+router.route('/:id/').get(isAuth,isActive,getPostById).put(isAuth,isActive,updatePost).delete(isAuth,isActive,deletePost)
 router.route('/comment/').post(isAuth,isActive,newComment)
 
 module.exports = router

@@ -1,4 +1,4 @@
-import { POST_SUCCESS,POST_FAIL, ADD_POST,ADD_POST_FAIL,GET_POST,GET_POST_FAIL} from './types'
+import { POST_SUCCESS,POST_FAIL, ADD_POST,ADD_POST_FAIL,GET_POST,GET_POST_FAIL, DELETE_POST} from './types'
 import axios from 'axios'
 
 import {  tokenConfig } from './auth'
@@ -38,12 +38,30 @@ export const addPost = (body) => (dispatch,getState) => {
         })
 }
 export const getPostById = id => (dispatch,getState) => {
-    axios.get(`/api/v1/${id}/`)
+    axios.get(`/api/v1/${id}/`,tokenConfig(getState))
         .then(res => {
             dispatch({
                 type:GET_POST,
                 payload:res.data.data
             })
+        })
+        .catch(err => {
+            dispatch({
+                type:GET_POST_FAIL,
+                payload:err
+            })
+        })
+}
+export const deletePost =( id,history )=> (dispatch,getState) => {
+    console.log(history)
+    axios.delete(`/api/v1/${id}/`,tokenConfig(getState))
+        .then(res => {
+            history.push('/')
+            dispatch({
+                type:DELETE_POST,
+                payload:id
+            })
+            
         })
         .catch(err => {
             dispatch({

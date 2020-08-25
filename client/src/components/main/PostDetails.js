@@ -1,20 +1,27 @@
 import React from 'react'
 import {connect } from 'react-redux'
-import {getPostById } from '../../actions/post'
+import {withRouter } from 'react-router-dom'
+import {getPostById,deletePost } from '../../actions/post'
 
 class PostDetails extends React.Component {
     componentDidMount(){
         if (this.props.id){
             this.props.getPostById(this.props.id)
         }
-        // console.log(this.props.posts)
     }
     render(){
-        const {post} = this.props
+        const {post,auth,history} = this.props
+        const updateBtn = (
+            <div>
+                <button className="btn-info">Update</button>
+                <button className="btn-danger" onClick={() => this.props.deletePost(post._id,history)}>Delete</button>
+            </div>
+        )
         const isP = (
             <section>
                     <div key={post._id}>
                         <h1>{post.body}</h1>
+                        {post.author = auth.user._id  ? updateBtn : ''}
                     </div>
             </section>
         )
@@ -32,6 +39,7 @@ class PostDetails extends React.Component {
 }
 const mapStateToProps = (state,ownProps) => ({
     id:ownProps.match.params.id,
-    post:state.post.post
+    post:state.post.post,
+    auth:state.auth
 })
-export default connect(mapStateToProps,{getPostById})(PostDetails)
+export default connect(mapStateToProps,{getPostById,deletePost})(withRouter(PostDetails))
