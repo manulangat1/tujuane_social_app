@@ -1,4 +1,4 @@
-import { POST_SUCCESS,POST_FAIL} from './types'
+import { POST_SUCCESS,POST_FAIL, ADD_POST,ADD_POST_FAIL} from './types'
 import axios from 'axios'
 import {  tokenConfig } from './auth'
 
@@ -15,6 +15,23 @@ export const loadPosts = () => (dispatch,getState) =>{
         .catch(err => {
             dispatch({
                 type:POST_FAIL,
+                payload:err
+            })
+        })
+}
+
+export const addPost = (body) => (dispatch,getState) => {
+    const bodys = JSON.stringify({body})
+    axios.post('/api/v1/',bodys,tokenConfig(getState))
+        .then(res => {
+            dispatch({
+                type:ADD_POST,
+                payload:res.data.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type:ADD_POST_FAIL,
                 payload:err
             })
         })

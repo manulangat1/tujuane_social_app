@@ -29,12 +29,12 @@ class WhoTo extends React.Component {
         )
         const notP = (
             <div>
-                <p>No posts at the moment</p>
+                <p>No users to follow at the moment</p>
             </div>
         )
         return (
             <section>
-                {this.props.who ? isP :notP}
+                {this.props.who.length > 0 ? isP :notP}
                 </section>
         )
     }

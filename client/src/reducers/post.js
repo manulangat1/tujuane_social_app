@@ -1,4 +1,4 @@
-import { POST_FAIL,POST_SUCCESS} from '../actions/types'
+import { POST_FAIL,POST_SUCCESS,  ADD_POST,ADD_POST_FAIL} from '../actions/types'
 
 
 const initialState = {
@@ -10,6 +10,15 @@ export default function(state=initialState,action){
             return{
                 ...state,
                 posts:action.payload
+            }
+        case ADD_POST:
+            return {
+                ...state,
+                posts:[action.payload,...state.posts]
+            }
+        case ADD_POST_FAIL:
+            return{
+                ...state
             }
         case POST_FAIL:
             return{
