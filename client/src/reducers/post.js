@@ -2,7 +2,7 @@ import { POST_FAIL,POST_SUCCESS} from '../actions/types'
 
 
 const initialState = {
-    posts:null
+    posts:[]
 }
 export default function(state=initialState,action){
     switch(action.type){
