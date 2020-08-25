@@ -1,13 +1,25 @@
-import { LOGIN_SUCCESS,REGISTER_SUCCESS,AUTH_FAIL,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD,RESEND_EMAIL} from '../actions/types'
+import { LOGIN_SUCCESS,REGISTER_SUCCESS,AUTH_FAIL,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD,
+    RESEND_EMAIL, POST_FOLLOW,POST_FOLLOW_FAIL} from '../actions/types'
 const initialState = {
     token:localStorage.getItem('token'),
     isAuthenticated:null,
     isLoading:false,
-    user:null
+    user:null,
+    whoF:null
 }
 
 export default function(state=initialState,action){
     switch(action.type){
+        case POST_FOLLOW:
+            return{
+                ...state,
+                whoF:action.payload
+            }
+        case POST_FOLLOW_FAIL:
+            return{
+                ...state,
+                whoF:null
+            }
         case USER_LOADED:
             return{
                 ...state,
