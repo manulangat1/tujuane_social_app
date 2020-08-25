@@ -5,7 +5,7 @@ const initialState = {
     isAuthenticated:null,
     isLoading:false,
     user:null,
-    whoF:null
+    whoF:[]
 }
 
 export default function(state=initialState,action){

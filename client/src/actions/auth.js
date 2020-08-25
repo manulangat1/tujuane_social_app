@@ -117,8 +117,9 @@ export const resend = (email) => dispatch => {
         .catch(err => console.log(err))
 }
 export const whoTo = () => (dispatch,getState) => {
-    axios.get('/auth/v1/follow/user')
+    axios.get('/auth/v1/follow/user',tokenConfig(getState))
         .then(res => {
+            // console.log(res.data.data)
             dispatch({
                 type:POST_FOLLOW,
                 payload:res.data.data

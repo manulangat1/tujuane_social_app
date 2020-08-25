@@ -234,7 +234,8 @@ exports.whoTo = async (req,res) => {
     following.push(req.user._id)
     try{
         const users = await User.find({ _id:{ $nin : following }})
-        .select('name')
+
+        .select('email username')
         res.status(200).json({
             success:true,
             data:users
