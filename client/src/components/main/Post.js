@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect } from 'react-redux'
 import {loadPosts } from '../../actions/post'
-
+import { NavLink,Link} from 'react-router-dom'
 class Post extends React.Component {
     componentDidMount(){
         this.props.loadPosts()
@@ -13,7 +13,9 @@ class Post extends React.Component {
             {
                 this.props.posts.map(post => (
                     <div key={post._id}>
+                        <NavLink to={`/post/${post._id}`}>
                         <h1>{post.body}</h1>
+                        </NavLink>
                     </div>
                 ))
             }

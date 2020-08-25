@@ -11,6 +11,7 @@ import Resend from './components/auth/Resend'
 import Footer from './components/layout/Footer'
 import PrivateRoute from './components/hoc/PrivateRoute'
 import Navbar from './components/layout/Navbar'
+import PostDetails from './components/main/PostDetails'
 import { HashRouter as Router,Switch ,Route} from 'react-router-dom'
 import {loadUser} from './actions/auth'
 
@@ -32,6 +33,7 @@ class App extends React.Component{
             <Route exact path="/reset/" component={PasswordReset}/>
             <Route exact path="/resend/" component={Resend}/>
             <Route exact path="/register/" component={Register}/>
+            <PrivateRoute exact path ="/post/:id/" component={PostDetails} />
           </Switch>
           
         </div>
