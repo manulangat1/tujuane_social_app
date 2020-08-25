@@ -11,7 +11,7 @@ class Post extends React.Component {
         const isP = (
             <section>
             {
-                this.props.posts.map(post => (
+               this.props.posts && this.props.posts.map(post => (
                     <div key={post._id}>
                         <NavLink to={`/post/${post._id}`}>
                         <h1>{post.body}</h1>
