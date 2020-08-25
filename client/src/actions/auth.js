@@ -1,4 +1,6 @@
-import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD,RESEND_EMAIL} from './types'
+import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED,
+    LOGOUT_SUCCESS,RESET_PASSWORD,RESEND_EMAIL,
+    POST_FOLLOW,POST_FOLLOW_FAIL} from './types'
 import axios from 'axios'
 
 export const loadUser = () => (dispatch,getState) => {
@@ -113,4 +115,19 @@ export const resend = (email) => dispatch => {
             }
         )
         .catch(err => console.log(err))
+}
+export const whoTo = () => (dispatch,getState) => {
+    axios.get('/auth/v1/follow/user')
+        .then(res => {
+            dispatch({
+                type:POST_FOLLOW,
+                payload:res.data.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type:POST_FOLLOW_FAIL,
+                payload:err
+            })
+        })
 }
