@@ -1,6 +1,6 @@
 import { AUTH_FAIL,REGISTER_SUCCESS,LOGIN_SUCCESS,USER_LOADED,
     LOGOUT_SUCCESS,RESET_PASSWORD,RESEND_EMAIL,
-    POST_FOLLOW,POST_FOLLOW_FAIL} from './types'
+    POST_FOLLOW,POST_FOLLOW_FAIL, ADD_FOLLOWING, ADD_FOLLOWING_FAIL} from './types'
 import axios from 'axios'
 
 export const loadUser = () => (dispatch,getState) => {
@@ -128,6 +128,26 @@ export const whoTo = () => (dispatch,getState) => {
         .catch(err => {
             dispatch({
                 type:POST_FOLLOW_FAIL,
+                payload:err
+            })
+        })
+}
+
+
+export const addFollowing = (followId) => (dispatch,getState) => {
+
+    const body = JSON.stringify({followId})
+    console.log(body)
+    axios.put(`/auth/v1/follow/`,body,tokenConfig(getState))
+        .then(res => {
+            dispatch({
+                type:ADD_FOLLOWING,
+                payload:res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type:ADD_FOLLOWING_FAIL,
                 payload:err
             })
         })

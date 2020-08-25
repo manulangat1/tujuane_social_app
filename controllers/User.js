@@ -194,6 +194,7 @@ exports.logOut = async (req,res) => {
 
 exports.addFollowing = async (req,res) => {
     try{
+        console.log(req.body.followId)
         const user = await User.findByIdAndUpdate(req.user._id,{$push: {following: req.body.followId}})
         res.status(200).json({
             success:true,

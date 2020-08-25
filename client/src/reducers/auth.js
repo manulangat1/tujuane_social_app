@@ -1,5 +1,5 @@
 import { LOGIN_SUCCESS,REGISTER_SUCCESS,AUTH_FAIL,USER_LOADED,LOGOUT_SUCCESS,RESET_PASSWORD,
-    RESEND_EMAIL, POST_FOLLOW,POST_FOLLOW_FAIL} from '../actions/types'
+    RESEND_EMAIL, POST_FOLLOW,POST_FOLLOW_FAIL, ADD_FOLLOWING,ADD_FOLLOWING_FAIL} from '../actions/types'
 const initialState = {
     token:localStorage.getItem('token'),
     isAuthenticated:null,
@@ -16,11 +16,13 @@ export default function(state=initialState,action){
                 whoF:action.payload
             }
         case POST_FOLLOW_FAIL:
+        case ADD_FOLLOWING_FAIL:
             return{
                 ...state,
                 whoF:null
             }
         case USER_LOADED:
+        case ADD_FOLLOWING:
             return{
                 ...state,
                 user:action.payload,
