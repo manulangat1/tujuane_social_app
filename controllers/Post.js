@@ -45,6 +45,31 @@ exports.getPosts = async (req,res) => {
     }
 }
 
+exports.getPostById = async (req,res) => {
+    try{
+        const _id = req.params.id
+        const post = await Post.findById(_id)
+        if (post){
+            res.status(200).json({
+                success:true,
+                data:post
+            })
+        } else {
+            res.status(400).json({
+                success:false,
+                message:'Not found'
+            })
+        }
+        
+    } catch (err) {
+        console.log(`Error is:${err}`)
+        res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
+    }
+}
+
 exports.updatePost = async (req,res) => {
     try{
         const _id = req.params.id

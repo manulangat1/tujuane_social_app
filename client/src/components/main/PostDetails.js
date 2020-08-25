@@ -25,7 +25,7 @@ class PostDetails extends React.Component {
         )
         return (
             <section>
-                {post.length >0 ? isP :notP}
+                {post  ? isP :notP}
                 </section>
         )
     }

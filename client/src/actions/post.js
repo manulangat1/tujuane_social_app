@@ -40,6 +40,7 @@ export const addPost = (body) => (dispatch,getState) => {
 export const getPostById = id => (dispatch,getState) => {
     axios.get(`/api/v1/${id}/`)
         .then(res => {
+            console.log(res.data.data)
             dispatch({
                 type:GET_POST,
                 payload:res.data.data
